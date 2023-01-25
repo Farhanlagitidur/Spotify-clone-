@@ -1,9 +1,14 @@
 import React from "react";
 import logo from "../assets/Spotify_Logo_Black.png";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import axios from "axios";
+import { useCreateContext } from "../utils/provider";
+import { Statecontext } from "../utils/provider";
 
-function Login() {
+const Login = () => {
+  // const value = useCreateContext()
+  // console.log(value);
+
   const handleClick = async () => {
     const client_id = "8762fdb3c1c64c8b99a24c0e74a2cec3";
     const redirect_uri = "http://localhost:3000/";
