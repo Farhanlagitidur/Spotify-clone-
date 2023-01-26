@@ -11,12 +11,12 @@ export const initialState = {
   selectedPlaylistId: "37i9dQZF1E37jO8SiMT0yN",
 };
 
-console.log(initialState.token)
+
 
 export const reducer = (state, action) => {
   // console.log(...state);
-  console.log(action,'fsaiuifdas')
-  console.log(state)
+  // console.log(action,'fsaiuifdas')
+  // console.log(state)
   switch ((action.type)) {
     case reducerCases.SET_TOKEN:
       return {
@@ -26,7 +26,7 @@ export const reducer = (state, action) => {
     case reducerCases.SET_USER:
       return {
         ...state,
-        action: action.userInfo,
+        userInfo: action.userInfo,
       };
     case reducerCases.SET_PLAYLISTS:
       return {
