@@ -24,10 +24,11 @@ function App() {
 
 // console.log(token,"new token")
   return (
-    <div >
+    <>
       {token ? <Main/> : <Login/>}
+     
       {/* <Main/> */}
-    </div>
+    </>
   );
 }
 

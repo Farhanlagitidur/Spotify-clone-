@@ -31,7 +31,7 @@ export const reducer = (state, action) => {
     case reducerCases.SET_PLAYLISTS:
       return {
         ...state,
-        action: action.playlist,
+        playlist: action.playlistInfo,
       };
     case reducerCases.SET_PLAYLIST_ID:
       return {

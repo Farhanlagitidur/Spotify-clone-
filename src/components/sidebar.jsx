@@ -1,16 +1,18 @@
 import React from "react";
 import logo from "../assets/Spotify_Logo_White.png";
+import { useCreateContext } from '../utils/provider'
 import { Homesvg, Searchsvg ,Librarysvg, Addplaylistsvg, Likedsongssvg}from "../assets/svg/svg";
 
 const Sidebar = () => {
+  const [{playlist}] = useCreateContext();
 
 
-  const styles = {
-
-  }
-
+  // console.log(playlist)
+  // playlist.items?.map((item) =>{
+  //   console.log(item.name)
+  // })
   return (
-    <div className="w-1/5 bg-black h-full font-spotify ">
+    <div className="w-1/5 bg-black h-full font-spotifybold ">
       <div className=" pl-4 pr-4 text-white ">
         <div className=" p-6 pl-0  ">
           <img src={logo} className="h-10 " />
@@ -40,10 +42,20 @@ const Sidebar = () => {
 
 
 
-        <div className=" w-full   flex flex-row cursor-pointer items-center">
+        <div className=" w-full   flex flex-row cursor-pointer items-center ">
         <Likedsongssvg/>
         <span className="pl-4 text-sm text-center ">Liked Songs</span> 
         </div>
+        </div>
+
+        <div className=" h-full">
+          {
+             playlist.items?.map((item) =>{
+             return(
+              <p key={item.id} className="text-sm m-3 ml-0 font-spotifylight font-medium cursor-pointer ">{item.name}</p>
+             )   
+            })
+          }
         </div>
 
       </div>

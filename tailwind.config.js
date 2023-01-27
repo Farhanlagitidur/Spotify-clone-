@@ -6,7 +6,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        'spotify': ['Spotify', 'sans-serif']
+        'spotifybold': ['Spotify1', 'sans-serif'],
+        'spotifythin': ['Spotify2', 'sans-serif'],
+        'spotifylight': ['Spotify3', 'sans-serif']
       }
     },
   },
