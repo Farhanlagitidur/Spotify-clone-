@@ -22,8 +22,10 @@ const Main = () => {
         userId: data.id,
         userHref: data.href,
         userName: data.display_name,
+        userImage: data.images[0],
       }
-      dispatch({type: reducerCases.SET_USER,userInfo})
+      // console.log(data)
+      dispatch({type: reducerCases.SET_USER, userInfo})
       // console.log(data)
     }
     getUserData()

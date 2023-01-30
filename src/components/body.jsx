@@ -6,9 +6,9 @@ import { reducerCases } from '../utils/constant'
 import Home from './home'
 
 const Body = () => {
-  const [{ token, selectedPlaylistId, playlist}, dispatch ] = useCreateContext()
+  const [{ token, selectedPlaylistId, playlist, featuredPlaylist}, dispatch ] = useCreateContext()
 
-  // console.log(playlist)
+  // console.log(featuredPlaylist)
   useEffect(() => {
       const getPlaylist = async () => {
 
@@ -18,7 +18,7 @@ const Body = () => {
             "Content-Type": "application/json",
           }
         })
-      
+
         const playlistInfo = {
           items: data.items
         }
@@ -30,7 +30,7 @@ const Body = () => {
   // console.log(playlist)
 
   return (
-    <div className='bg-[#222222] w-4/5'>
+    <div className=' bg-gradient-to-t from-[#222222]  via-[#222222] to-purple-900 w-4/5 p-4 pt-0'>
         <Home/>
     </div>
   )

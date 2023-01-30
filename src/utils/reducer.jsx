@@ -8,6 +8,7 @@ export const initialState = {
   currentPlaying: null,
   playerState: false,
   selectedPlaylist: null,
+  featuredPlaylist: null,
   selectedPlaylistId: "37i9dQZF1E37jO8SiMT0yN",
 };
 
@@ -33,6 +34,11 @@ export const reducer = (state, action) => {
         ...state,
         playlist: action.playlistInfo,
       };
+    case reducerCases.SET_FEATURED_PLAYLIST:
+       return {
+         ...state,
+         featuredPlaylist: action.featuredPlaylists,
+     };  
     case reducerCases.SET_PLAYLIST_ID:
       return {
           ...state,
