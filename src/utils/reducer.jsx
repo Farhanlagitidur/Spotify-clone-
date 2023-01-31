@@ -12,8 +12,6 @@ export const initialState = {
   selectedPlaylistId: "37i9dQZF1E37jO8SiMT0yN",
 };
 
-
-
 export const reducer = (state, action) => {
   // console.log(...state);
   // console.log(action,'fsaiuifdas')
@@ -39,6 +37,11 @@ export const reducer = (state, action) => {
          ...state,
          featuredPlaylist: action.featuredPlaylists,
      };  
+     case reducerCases.SET_PLAYING:
+      return {
+        ...state,
+        currentPlaying: action.playingInfo,
+    }; 
     case reducerCases.SET_PLAYLIST_ID:
       return {
           ...state,

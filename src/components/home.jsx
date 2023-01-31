@@ -7,8 +7,10 @@ import { reducerCases } from '../utils/constant'
 const Home = () => {
   const [{ token, selectedPlaylistId, playlist,userInfo,featuredPlaylist}, dispatch ] = useCreateContext()
 
+  // console.log(userInfo)
  useEffect(() => {
-    const getAlbums = async ()  => {   
+    const getAlbums = async ()  => { 
+
       const config = {
       headers:{
         'Authorization': 'Bearer ' + token,
@@ -19,85 +21,60 @@ const Home = () => {
         limit: 7
       }
     }
-    
-    const [res1,res2] =  await axios.all([
+    const config1 = {
+      headers:{
+        'Authorization': 'Bearer ' + token,
+        "Content-Type": "application/json",
+      },}
+
+    const [ res1, res2, res3 ] =  await axios.all([
      axios.get("https://api.spotify.com/v1/browse/featured-playlists?country=US&language=en",config),
      axios.get("https://api.spotify.com/v1/browse/featured-playlists",config),
+     axios.get(`https://api.spotify.com/v1/artists?ids=2IDLDx25HU1nQMKde4n61a,7tYKF4w9nC0nq9CsPZTHyP,1AhjOkOLkbHUfcHDSErXQs,1Xyo4u8uXC1ZmMpatF05PJ,0Y5tJX1MQlPlqiwlOH1tJY,7pbDxGE6nQSZVfiFdq9lOL,6UbmqUEgjLA6jAcXwbM1Z9`, config1)
     ])
-      
-      const { data } = await axios.get("https://api.spotify.com/v1/browse/featured-playlists?country=US&language=en",{
-        headers:{
-          'Authorization': 'Bearer ' + token,
-          "Content-Type": "application/json",
-        },
-        params: {
-          seed_tracks: '4NHQUGzhtTLFvgF5SZesLK',
-          limit: 7
-        }
-      })
 
-      const { indo } = await axios.get("https://api.spotify.com/v1/browse/featured-playlists",{
-        headers:{
-          'Authorization': 'Bearer ' + token,
-          "Content-Type": "application/json",
-        },
-        params: {
-          seed_tracks: '4NHQUGzhtTLFvgF5SZesLK',
-          limit: 7
-        }
-      })
-      console.log(indo,"iasjoigjas")
+    // console.log(res3)
+    const featuredPlaylists = {
+      usa: res1.data.playlists.items,
+      indo: res2.data.playlists.items,
+      artist: res3.data.artists,
+    } 
 
-      const featuredPlaylists = {
-        items: data.playlists.items,
-        indo : indo?.playlists.items
-      }
-      dispatch({type: reducerCases.SET_FEATURED_PLAYLIST, featuredPlaylists})
-      }
+    dispatch({type: reducerCases.SET_FEATURED_PLAYLIST, featuredPlaylists})
+  }
     getAlbums()
  },[token, dispatch])
 
-console.log(featuredPlaylist,"isgoaisjgs")
+
+// console.log(featuredPlaylist,"isgoaisjgs")
   const List = ({name,images}) => {
     return (
         <div  className="bg-[#303030] backdrop-blur-xl bg-gray-300/10 h-20 flex items-center rounded hover:bg-gray-400/40 cursor-pointer ">
             <div  style={{backgroundImage: `url(${images[0]?.url})`}}
-             className="h-full w-20 bg-yellow-300 rounded bg-cover bg-center"></div>
+             className="h-full w-20 bg-yellow-300 rounded bg-cover bg-center "></div>
             <span className=" ml-6 font-spotifybold text-white">{name}</span>
         </div>
     )
   }
 
   const Hits = ({item,id}) => {
-    // console.log(item)
+   
     return (
       <div key={id} className={`bg-[#181818] w-48 rounded p-4 hover:bg-gray-400/10  cursor-pointer ${id === 4 && "flex-col md:hidden lg:hidden  2xl:flex" }
        ${id === 5 && "md:hidden flex-col xl:hidden min-[1390px]:flex "} ${id === 6 && "md:hidden flex-col xl:hidden min-[1810px]:flex"}`}>
           <div style={{backgroundImage: `url(${item.images[0].url})`}}
-          className="bg-black w-40 h-40 rounded mb-2 bg-cover bg-center"></div>
+          className={` bg-black w-40 h-40  ${item.type === "artist" ? "rounded-full" : "rounded" } mb-2 bg-cover bg-center`}></div>
           <span className="font-spotifybold text-white truncate ">{item.name}</span>
+          {item.type === "artist" ? <p className="font-spotifythin text-sm overflow-hidden text-[#6e6e6e] h-10 mt-2">
+          Artist</p> : 
           <p className="font-spotifythin text-sm overflow-hidden text-[#6e6e6e] h-10 mt-2">
-          {item.description}</p>
+          {item.description}</p>}
         </div>
     )
   }
 
-  // const Indo = ({}) => {
-  //   return(
-  //     <div key={id} className={`bg-[#181818] w-48 rounded p-4 hover:bg-gray-400/10  cursor-pointer ${id === 4 && "flex-col md:hidden lg:hidden  2xl:flex" }
-  //     ${id === 5 && "md:hidden flex-col xl:hidden min-[1390px]:flex "} ${id === 6 && "md:hidden flex-col xl:hidden min-[1810px]:flex"}`}>
-  //        <div style={{backgroundImage: `url(${item.images[0].url})`}}
-  //        className="bg-black w-40 h-40 rounded mb-2 bg-cover bg-center"></div>
-  //        <span className="font-spotifybold text-white truncate ">{item.name}</span>
-  //        <p className="font-spotifythin text-sm overflow-hidden text-[#6e6e6e] h-10 mt-2">
-  //        {item.description}</p>
-  //      </div>
-  //   )
-  // }
-
-
   return (
-    <div className="h-full ">
+    <div className="h-full">
      <div className="w-full  p-4 pt-0  ">
       <div className="h-16 flex justify-between  items-center  ">
         <div className=" h-10 flex flex-row justify-center items-center">
@@ -143,16 +120,16 @@ console.log(featuredPlaylist,"isgoaisjgs")
           
         }
       </div>
-
+     
       <div className=" h-14  pb-0 p-4 font-spotifybold text-2xl text-white flex justify-between ">
         <span>Today's biggest hits</span>
-        <span className="  font-spotifymedium text-sm cursor-pointer hover:underline mt-4 text-gray-400">SHOW ALL</span>
+        <span className="  font-spotifymedium text-sm cursor-pointer hover:underline mt-4 text-[#6e6e6e]">SHOW ALL</span>
       </div>
 
       <div className=" p-4 grid grid-flow-col gap-4 overflow-hidden place-items-center">
 
         {
-          featuredPlaylist?.items.map((item,id) => {
+          featuredPlaylist?.usa.map((item,id) => {
             return (
               <Hits item={item} id={id}/>
             )
@@ -160,18 +137,40 @@ console.log(featuredPlaylist,"isgoaisjgs")
         }
       </div>
 
+      <div className=" h-14  pb-0 p-4 font-spotifybold text-2xl text-white flex justify-between ">
+        <span> Waktu Indonesia bagian overthinking</span>
+        <span className="  font-spotifymedium text-sm cursor-pointer hover:underline mt-4 text-[#6e6e6e]">SHOW ALL</span>
+      </div>
 
-      <div className=" p-4 grid grid-flow-col gap-4 overflow-hidden place-items-center">
+    <div className=" p-4 grid grid-flow-col gap-4 overflow-hidden place-items-center">
 
       {
-        featuredPlaylist?.items.map((item,id) => {
+        featuredPlaylist?.indo?.map((item,id) => {
           return (
             <Hits item={item} id={id}/>
           )
         })
       }
 
+      </div> 
+
+      <div className=" h-14  pb-0 p-4 font-spotifybold text-2xl text-white flex justify-between ">
+        <span> Your favorite artist</span>
+        <span className="  font-spotifymedium text-sm cursor-pointer hover:underline mt-4 text-[#6e6e6e]">SHOW ALL</span>
       </div>
+
+    <div className=" p-4 grid grid-flow-col gap-4 overflow-hidden place-items-center">
+
+      {
+        featuredPlaylist?.artist?.map((item,id) => {
+          return (
+            <Hits item={item} id={id}/>
+          )
+        })
+      }
+
+      </div> 
+      <div className="h-96 "></div>
     </div>
   );
 };

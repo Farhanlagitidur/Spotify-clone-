@@ -30,7 +30,7 @@ const Body = () => {
   // console.log(playlist)
 
   return (
-    <div className=' bg-gradient-to-t from-[#222222]  via-[#222222] to-purple-900 w-4/5 p-4 pt-0'>
+    <div className=' overflow-scroll bg-[#222222] bg-gradient-to-t from-[#222222]  via-[#222222] to-purple-900 w-4/5 p-4 pt-0  mb-20 overflow-x-hidden'>
         <Home/>
     </div>
   )

@@ -1,14 +1,50 @@
 import React from 'react'
+import axios from 'axios'
+import { useCreateContext } from '../utils/provider'
+import { reducerCases } from '../utils/constant'
+import { useEffect } from 'react'
 
 const Player = () => {
+const [{token, currentPlaying},dispatch] = useCreateContext()
+
+
+ useEffect(() => {
+      const getPlaying = async () => {
+
+        const { data } = await axios.get("https://api.spotify.com/v1/me/player/currently-playing",{
+          headers:{
+            'Authorization': 'Bearer ' + token,
+            "Content-Type": "application/json",
+          }
+        })
+        console.log(data)
+        console.log(data.item.album.images)
+        // const playlistInfo = {
+        //   items: data.items
+        // }
+        const playingInfo = {
+          name: data.item.name,
+          images: data.item.album.images
+        }
+        console.log(playingInfo.name,"lahh")
+        dispatch({type:reducerCases.SET_PLAYING, playingInfo })
+      }
+      getPlaying()
+  },[ token,dispatch])
+
+  console.log(currentPlaying?.images[0],'asu')
+
+
   return (
     <div className='h-24 fixed bottom-0 bg-[#181818] w-screen p-3'>
       <div className='  h-full flex justify-between'>
 
         <div className=' h-full w-auto flex flex-row '>
-          <div className='bg-white w-[70px] h-full'></div>
+          <div 
+          style={{backgroundImage: `url(${currentPlaying?.images[0].url})`}}
+          className='bg-white w-[70px] h-full bg-cover'></div>
             <div className='flex-col flex font-spotify ml-4 justify-center text-white'>
-               <span>Dreaming on</span>
+               <span>{currentPlaying?.name}</span>
                <span className=' text-[10px] '>NEFFEX</span>
             </div>
             <div className=' flex items-center ml-4 '>
