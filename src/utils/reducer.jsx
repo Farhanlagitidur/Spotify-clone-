@@ -5,6 +5,7 @@ export const initialState = {
   token: null,
   userInfo: null,
   playlist: [],
+  genres: null,
   currentPlaying: null,
   playerState: false,
   selectedPlaylist: null,
@@ -41,6 +42,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         currentPlaying: action.playingInfo,
+    }; 
+    case reducerCases.SET_GENRES:
+      return {
+        ...state,
+        genres: action.genresInfo,
     }; 
     case reducerCases.SET_PLAYLIST_ID:
       return {

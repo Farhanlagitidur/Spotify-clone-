@@ -21,13 +21,13 @@ export const Homesvg = () => {
   );
 };
 
-export const Searchsvg = () => {
+export const Searchsvg = ({stroke}) => {
   return (
     <svg
       className="w-6 h-6 "
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      stroke="#fff"
+      stroke={stroke}
       strokeWidth="1.5"
       viewBox="0 0 24 24"
     >

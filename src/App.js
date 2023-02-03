@@ -4,6 +4,7 @@ import Login from './components/login';
 import {useCreateContext} from './utils/provider'
 import { reducerCases } from "./utils/constant";
 
+
 function App() {
   const [{ token },dispatch] = useCreateContext()
 
@@ -25,7 +26,11 @@ function App() {
 // console.log(token,"new token")
   return (
     <>
-      {token ? <Main/> : <Login/>}
+      {token ?
+    
+       <Main/>
+      
+       : <Login/>}
      
       {/* <Main/> */}
     </>

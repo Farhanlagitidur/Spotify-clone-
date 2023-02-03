@@ -7,10 +7,12 @@ module.exports = {
     extend: {
       fontFamily:{
         'spotifybold': ['Spotify1', 'sans-serif'],
-        'spotifythin': ['Spotify2', 'sans-serif'],
-        'spotifylight':['Spotify3', 'sans-serif']
+        'spotifylight': ['Spotify2', 'sans-serif'],
+        'spotifythin':['Spotify3', 'sans-serif']
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }
