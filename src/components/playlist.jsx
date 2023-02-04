@@ -1,11 +1,59 @@
 import React from 'react'
 import { useCreateContext } from "../utils/provider";
+import Footer from './footer'
 
 const Playlists = () => {
-  const [{ token, selectedPlaylistId, playlist,userInfo,featuredPlaylist}, dispatch ] = useCreateContext()
+  const [{ selectedPlaylist,userInfo,featuredPlaylist}, dispatch ] = useCreateContext()
+
+
+console.log(selectedPlaylist)
+
+
+
+
+ const Track = ({track,id}) => {
+
+  const ms = track?.track.duration_ms
+  const minutes = Math.floor(ms / 60000)
+  const seconds = ((ms % 60000)/ 1000).toFixed(0)
+  
+  const dateString = track.added_at;
+  const date = new Date(dateString);
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  const formattedDate = date.toLocaleDateString("en-US", options);
+
+    return (
+
+      <div className='pl-4 pr-10 h-12 mt-4 flex  flex-row  items-center text-[#B3B3B3] rounded '>
+          <p className="w-6 h-6">{id === 0 ? "1" : id + 1}</p>
+
+        <div className='  ml-4  w-3/5  h-full flex flex-row'>
+          <div 
+          style={{backgroundImage: `url(${track?.track.album.images[0].url})`}}
+          className='h-full bg-black w-12 bg-center bg-cover'></div>
+          <div className=' ml-4 w-[400px]'>
+          <p className='font-spotifylight text-[14px] text-white truncate overflow-hidden  mb-1'>{track?.track.name}</p>
+            <div className='flex flex-row items-center'>
+              <p className='bg-[#A0A3A3] w-4 h-4 font-spotifythin text-black text-[10px] text-center rounded-sm'>E</p>
+              <p className='font-spotifylight text-[13px] text-[#B3B3B3]  ml-2'>{track?.track.artists.map(item => item.name).join(", ")}</p>
+            </div>
+          </div>
+        </div>
+
+
+        <p className=' ml-6 font-spotifylight text-[13px] w-2/5  truncate b'>{track?.track.album.name}</p>
+        <p className='  ml-6 font-spotifylight text-[13px]  w-2/5 whitespace-nowrap '>{formattedDate}</p>
+        <p className='font-spotifylight text-[13px] '>{minutes + ":" + (seconds < 10 ? '0' : '') + seconds}</p>
+           
+      </div>
+     
+    )
+ }
+
 
   return (
-    <div className=' pt-0 '>
+   <>
+    <div className='h-auto'>
       <div className="h-16 flex justify-between  items-center p-4 ">
           <div className=" h-10 flex flex-row justify-center items-center">
   
@@ -21,7 +69,7 @@ const Playlists = () => {
     
             </div>
     
-            <div className=" h-9 w-28 rounded-full p-1 flex flex-row items-center justify-between bg-black">
+            <div className=" h-9 w-28 rounded-full p-1 flex flex-row items-center justify-between bg-black ">
                 <div 
                   style={{backgroundImage: `url(${userInfo?.userImage.url})`}}
                 className=" h-8 w-8 rounded-full bg-cover">
@@ -36,23 +84,25 @@ const Playlists = () => {
        </div>
 
        <div className=' h-64 flex justify-start relative p-4'>
-          <div className='bg-blue-400 h-56 w-56 absolute bottom-0'></div>
+          <div 
+          style={{backgroundImage: `url(${selectedPlaylist?.images.url})`}}
+          className=' h-56 w-56 absolute bottom-0 bg-center bg-cover'></div>
 
           
           <div className='flex flex-col   text-white absolute bottom-0 left-64'>
           <div>
             <h2 className='  font-spotifylight'>Playlist</h2>
-              <h1 className=' text-8xl font-spotifybold '>OMEGALUL</h1>
+              <h1 className=' text-8xl font-spotifybold '>{selectedPlaylist?.name}</h1>
               <div className='flex flex-row  font-spotifylight mt-10 '>
-                <p>Mikkel Halle Hesbek,</p>
+                <p>{selectedPlaylist?.owner},</p>
                 <p>2.238 likes,</p>
-                <p>883 songs,</p>
+                <p>{selectedPlaylist?.tracks.length} songs,</p>
               </div>
           </div>
           </div>
        </div>
 
-       <div className=' backdrop-blur-xl  bg-gray-400/10 h-screen mt-8 w-full '>
+       <div className=' backdrop-blur-xl  bg-[#121212]/30  mt-8 w-full '>
         <div className=' flex items-center '>
           <svg className='h-16 w-16 m-2 ' viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M25.5 4.25C21.2971 4.25 17.1887 5.49629 13.6941 7.83127C10.1996 10.1663 7.47592 13.485 5.86755 17.368C4.25919 21.2509 3.83837 25.5236 4.65831 29.6457C5.47824 33.7678 7.50211 37.5542 10.474 40.526C13.4458 43.4979 17.2322 45.5218 21.3543 46.3417C25.4764 47.1616 29.7491 46.7408 33.632 45.1324C37.5149 43.5241 40.8337 40.8004 43.1687 37.3059C45.5037 33.8113 46.75 29.7029 46.75 25.5C46.75 22.7094 46.2003 19.9461 45.1324 17.368C44.0645 14.7898 42.4993 12.4472 40.526 10.474C38.5528 8.50074 36.2102 6.93547 33.632 5.86756C31.0539 4.79965 28.2906 4.25 25.5 4.25ZM21.3543 32.5V17.381L33 25.5L21.3543 32.5Z" 
@@ -62,22 +112,53 @@ const Playlists = () => {
             <path d="M18.205 1.79099C17.6536 1.2357 16.9979 0.794884 16.2756 0.49387C15.5533 0.192857 14.7786 0.0375869 13.996 0.0369873C12.5158 0.0372293 11.0897 0.59326 10 1.59499C8.91041 0.593091 7.48422 0.0370339 6.00401 0.0369873C5.22055 0.037803 4.44499 0.193547 3.72195 0.495256C2.99891 0.796965 2.34268 1.23868 1.79101 1.79499C-0.561989 4.15799 -0.560989 7.85399 1.79301 10.207L10 18.414L18.207 10.207C20.561 7.85399 20.562 4.15799 18.205 1.79099Z"
             fill="#1DD760"/>
             </svg>
-            <svg className='h-5 w-6  m-6' viewBox="0 0 78 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0.640747" className='w-4 h-4' height="20.2817" rx="10.1408" fill="#B2B2B4"/>
-              <rect x="28.9225" className='w-4 h-4' height="20.2817" rx="10.1408" fill="#B2B2B4"/>
-              <rect x="57.2042" className='w-4 h-4' height="20.2817" rx="10.1408" fill="#B2B2B4"/>
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#B2B2B4" viewBox="0 0 24 24" stroke-width="1.5" stroke="#B2B2B4" class="w-8 h-8 m-6 ">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+            </svg>
+
+
+        </div>
+        <div className=' w-full  p-4 0 '>
+          <div className=' font-spotifylight text-[#B3B3B3]  border-b-[1px] border-[#414040]  w-full '>
+
+            <div className='pl-4 pr-10 pb-2 flex  flex-row  items-center '>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5" />
               </svg>
 
-        </div>
-        <div className=' w-full h-12 p-4 '>
-          <div className=' font-spotifylight text-[#B3B3B3]  border-b-[1px] border-[#414040]'>
-            <p className=' w-20 ml-4 mb-4'># title</p>
+
+              <p className='  ml-4 font-spotifylight text-xs w-3/5'> TITLE</p>
+              <p className='  ml-4 font-spotifylight text-xs w-2/5 '> ABLUM</p>
+              <p className='  ml-4 font-spotifylight text-xs  w-2/5 whitespace-nowrap '> DATE ADDED</p>
+
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8  float-right">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"  />
+            </svg>
+
+            </div>
           </div>
+
+          <div className='flex flex-col'> 
+           {selectedPlaylist?.tracks?.map((track ,id)=> {
+            return(
+             <Track  track={track} id={id}/>
+            )
+           })}
+
+          </div>
+
+
+
         </div>
        </div>
-
+      
 
     </div>
+    <div className='p-4'>
+      <Footer/>
+    </div>
+   </>
   )
 }
 

@@ -55,12 +55,11 @@ const Sidebar = ({handleOpen, isopen, handlePlaylist}) => {
         <div className=" h-full">
           {
              playlist.items?.map((item) =>{
-             
-              
+      
              return(
               <p 
               onClick={() => handlePlaylist(true,'playlist',item.id)}
-              className={`text-sm m-3 ml-0 font-spotifylight text-[13px] text-[#B3B3B3]  hover:text-white cursor-pointer `}>{item.name}</p>
+              className={`text-sm m-3 ml-0 font-spotifylight text-[13px] text-[#B3B3B3] ${isopen.playlist.id === item.id && 'text-white'} hover:text-white cursor-pointer `}>{item.name}</p>
              )   
             })
           }

@@ -14,9 +14,6 @@ export const initialState = {
 };
 
 export const reducer = (state, action) => {
-  // console.log(...state);
-  // console.log(action,'fsaiuifdas')
-  // console.log(state)
   switch ((action.type)) {
     case reducerCases.SET_TOKEN:
       return {
@@ -48,11 +45,11 @@ export const reducer = (state, action) => {
         ...state,
         genres: action.genresInfo,
     }; 
-    case reducerCases.SET_PLAYLIST_ID:
+    case reducerCases.SET_SELECTED_PLAYLIST:
       return {
           ...state,
-          selectedPlaylistId: action.selectedPlaylistId,
-        };
+          selectedPlaylist: action.selectedPlaylistData,
+    };
     default:
       return state;
   }

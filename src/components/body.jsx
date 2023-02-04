@@ -11,11 +11,14 @@ import {BrowserRouter as Router , Routes , Route } from 'react-router-dom'
 import Playlists from './playlist'
 
 const Body = () => {
-  const [{ token, z}, dispatch ] = useCreateContext()
+  const [{ token }, dispatch ] = useCreateContext()
   const [isopen , setOpen] = useState({
     home:true,
     search:false,
-    playlist:false,
+    playlist:{
+      value:false,
+      id:null,
+    }
   },)
   // console.log(featuredPlaylist)
   useEffect(() => {
@@ -56,14 +59,18 @@ const Body = () => {
     }
   }
 
-  const handlePlaylist = async (value, param ,id) => {
+
   
+  const handlePlaylist = async (value, param ,id) => {
    if(param === 'playlist'){
       setOpen(prevState => ({
         ...prevState,
         home: !value,
         search: !value,
-        playlist: value
+        playlist: {
+          value:true,
+          id:id,
+        }
       }))
     }
     const { data } = await axios.get(`https://api.spotify.com/v1/playlists/${id}`,{
@@ -73,22 +80,39 @@ const Body = () => {
       }
     })
 
-    console.log(data)
+    console.log(data.tracks.items)
 
-    // const playlistInfo = {
-    //   items: data.items
-    // }
-    
-    // dispatch({type:reducerCases.SET_PLAYLISTS, playlistInfo})
+ 
+    const selectedPlaylistData = {
+        name: data.name,
+        images: data.images[0],
+        owner: data.owner.display_name,
+        tracks: data.tracks.items
+    }
+    dispatch({type:reducerCases.SET_SELECTED_PLAYLIST, selectedPlaylistData})
     
     console.log(id)
   
   }
 
+  const getRandomColor = () => {
+    const colors = [
+      "to-purple-900",
+      "to-violet-900",
+      "to-rose-900",
+      "to-fuchsia-900",
+      "to-pink-900",
+      "to-orange-900",
+      "to-teal-900",
+   
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
   return (
   <>
     <Sidebar handleOpen={handleOpen} handlePlaylist={handlePlaylist} isopen={isopen}/>
-    <div className=' overflow-scroll bg-[#121212] bg-gradient-to-t from-[#121212] via-[#121212] to-purple-900 w-4/5  pt-0  mb-20 overflow-x-hidden scrollbar-hide'>
+    <div className={`overflow-scroll  bg-gradient-to-t from-[#121212] via-[#121212] ${getRandomColor()} w-4/5  pt-0  mb-20 overflow-x-hidden scrollbar-hide`}>
     
        { isopen.home && <Home/> }
        { isopen.search && <Search/> }
