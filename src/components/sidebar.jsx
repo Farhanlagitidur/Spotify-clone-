@@ -34,7 +34,7 @@ const Sidebar = ({handleOpen, isopen, handlePlaylist}) => {
 
           <li className="flex flex-row items-center rounded-md w-full mb-2 hover:text-white ">
             <Librarysvg/>
-            <span className=" text-center pl-2 m-2 text-sm">Library</span>
+            <span className=" text-center pl-2 m-2 text-sm">Your Library</span>
           </li>
         </ul>
 

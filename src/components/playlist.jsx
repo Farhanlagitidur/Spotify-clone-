@@ -1,26 +1,43 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 import { useCreateContext } from "../utils/provider";
 import Footer from './footer'
 
 const Playlists = () => {
   const [{ selectedPlaylist,userInfo,featuredPlaylist}, dispatch ] = useCreateContext()
+  // const [time ,setTime] = useState(0)
 
+// console.log(selectedPlaylist?.tracks)
 
-console.log(selectedPlaylist)
-
-
+// console.log(time)
 
 
  const Track = ({track,id}) => {
 
-  const ms = track?.track.duration_ms
-  const minutes = Math.floor(ms / 60000)
-  const seconds = ((ms % 60000)/ 1000).toFixed(0)
-  
-  const dateString = track.added_at;
-  const date = new Date(dateString);
-  const options = { year: "numeric", month: "short", day: "numeric" };
-  const formattedDate = date.toLocaleDateString("en-US", options);
+    const ms = track?.track.duration_ms
+    const minutes = Math.floor(ms / 60000)
+    const seconds = ((ms % 60000)/ 1000).toFixed(0)
+    
+    const dateString = track.added_at;
+    const date = new Date(dateString);
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    const formattedDate = date.toLocaleDateString("en-US", options);
+
+    // const all = track?.track.duration_ms
+  //  console.log(selectedPlaylist?.tracks.length)
+    // setTime((prevCounter) =>{
+    //   // console.log(prevCounter)
+    //   console.log(id,'kon')
+    //   console.log(selectedPlaylist?.tracks.length - 1,'asu')
+    //   if (id === selectedPlaylist?.tracks.length - 1 ) {
+    //     return prevCounter + ms;
+    //   }else{
+    //     return 0;
+    //   }
+      
+    //   // If it's equal to the data length, reset the counter to 0
+      
+    // } )
 
     return (
 
@@ -50,6 +67,18 @@ console.log(selectedPlaylist)
     )
  }
 
+//  const All = ({track}) => {
+//   console.log(track?.track?.duration_ms)
+//   // const tai = []
+//   //   for(let i = 0; i < track?.track?.duration_ms; i++) {
+//   //     console.log(i)
+//   //   }
+
+//   return (
+//     <p className='text-[#B3B3B3] ml-1'>13 min 14 sec</p>
+//   )
+//  }
+
 
   return (
    <>
@@ -59,12 +88,14 @@ console.log(selectedPlaylist)
   
             <svg className="h-8 w-8 bg-[#131313]  m-2 ml-0 rounded-full cursor-pointer" 
             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10.5999 12.71C10.5062 12.617 10.4318 12.5064 10.381 12.3846C10.3303 12.2627 10.3041 12.132 10.3041 12C10.3041 11.868 10.3303 11.7373 10.381 11.6154C10.4318 11.4936 10.5062 11.383 10.5999 11.29L15.1899 6.71C15.2836 6.61704 15.358 6.50644 15.4088 6.38458C15.4596 6.26272 15.4857 6.13201 15.4857 6C15.4857 5.86799 15.4596 5.73728 15.4088 5.61542C15.358 5.49356 15.2836 5.38296 15.1899 5.29C15.0026 5.10375 14.7491 4.99921 14.4849 4.99921C14.2207 4.99921 13.9673 5.10375 13.7799 5.29L9.18992 9.88C8.62812 10.4425 8.31256 11.205 8.31256 12C8.31256 12.795 8.62812 13.5575 9.18992 14.12L13.7799 18.71C13.9662 18.8947 14.2176 18.9989 14.4799 19C14.6115 19.0008 14.742 18.9755 14.8638 18.9258C14.9857 18.876 15.0965 18.8027 15.1899 18.71C15.2836 18.617 15.358 18.5064 15.4088 18.3846C15.4596 18.2627 15.4857 18.132 15.4857 18C15.4857 17.868 15.4596 17.7373 15.4088 17.6154C15.358 17.4936 15.2836 17.383 15.1899 17.29L10.5999 12.71Z" fill="white"/>
+            <path d="M10.5999 12.71C10.5062 12.617 10.4318 12.5064 10.381 12.3846C10.3303 12.2627 10.3041 12.132 10.3041 12C10.3041 11.868 10.3303 11.7373 10.381 11.6154C10.4318 11.4936 10.5062 11.383 10.5999 11.29L15.1899 6.71C15.2836 6.61704 15.358 6.50644 15.4088 6.38458C15.4596 6.26272 15.4857 6.13201 15.4857 6C15.4857 5.86799 15.4596 5.73728 15.4088 5.61542C15.358 5.49356 15.2836 5.38296 15.1899 5.29C15.0026 5.10375 14.7491 4.99921 14.4849 4.99921C14.2207 4.99921 13.9673 5.10375 13.7799 5.29L9.18992 9.88C8.62812 10.4425 8.31256 11.205 8.31256 12C8.31256 12.795 8.62812 13.5575 9.18992 14.12L13.7799 18.71C13.9662 18.8947 14.2176 18.9989 14.4799 19C14.6115 19.0008 14.742 18.9755 14.8638 18.9258C14.9857 18.876 15.0965 18.8027 15.1899 18.71C15.2836 18.617 15.358 18.5064 15.4088 18.3846C15.4596 18.2627 15.4857 18.132 15.4857 18C15.4857 17.868 15.4596 17.7373 15.4088 17.6154C15.358 17.4936 15.2836 17.383 15.1899 17.29L10.5999 12.71Z" 
+            fill="#7B7B7B"/>
             </svg>
     
             <svg className="h-8 w-8 bg-[#131313] m-2 rounded-full cursor-pointer"
               viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.3999 9.88L10.8099 5.29C10.6225 5.10375 10.369 4.99921 10.1049 4.99921C9.84068 4.99921 9.58723 5.10375 9.39986 5.29C9.30613 5.38296 9.23174 5.49356 9.18097 5.61542C9.1302 5.73728 9.10406 5.86799 9.10406 6C9.10406 6.13201 9.1302 6.26272 9.18097 6.38458C9.23174 6.50644 9.30613 6.61704 9.39986 6.71L13.9999 11.29C14.0936 11.383 14.168 11.4936 14.2188 11.6154C14.2695 11.7373 14.2957 11.868 14.2957 12C14.2957 12.132 14.2695 12.2627 14.2188 12.3846C14.168 12.5064 14.0936 12.617 13.9999 12.71L9.39986 17.29C9.21156 17.477 9.10524 17.7311 9.10431 17.9965C9.10337 18.2618 9.20789 18.5167 9.39486 18.705C9.58184 18.8933 9.83596 18.9996 10.1013 19.0006C10.3667 19.0015 10.6216 18.897 10.8099 18.71L15.3999 14.12C15.9617 13.5575 16.2772 12.795 16.2772 12C16.2772 11.205 15.9617 10.4425 15.3999 9.88Z" fill="#7B7B7B"/>
+            <path d="M15.3999 9.88L10.8099 5.29C10.6225 5.10375 10.369 4.99921 10.1049 4.99921C9.84068 4.99921 9.58723 5.10375 9.39986 5.29C9.30613 5.38296 9.23174 5.49356 9.18097 5.61542C9.1302 5.73728 9.10406 5.86799 9.10406 6C9.10406 6.13201 9.1302 6.26272 9.18097 6.38458C9.23174 6.50644 9.30613 6.61704 9.39986 6.71L13.9999 11.29C14.0936 11.383 14.168 11.4936 14.2188 11.6154C14.2695 11.7373 14.2957 11.868 14.2957 12C14.2957 12.132 14.2695 12.2627 14.2188 12.3846C14.168 12.5064 14.0936 12.617 13.9999 12.71L9.39986 17.29C9.21156 17.477 9.10524 17.7311 9.10431 17.9965C9.10337 18.2618 9.20789 18.5167 9.39486 18.705C9.58184 18.8933 9.83596 18.9996 10.1013 19.0006C10.3667 19.0015 10.6216 18.897 10.8099 18.71L15.3999 14.12C15.9617 13.5575 16.2772 12.795 16.2772 12C16.2772 11.205 15.9617 10.4425 15.3999 9.88Z"
+             fill="#7B7B7B"/>
             </svg>
     
             </div>
@@ -91,13 +122,19 @@ console.log(selectedPlaylist)
           
           <div className='flex flex-col   text-white absolute bottom-0 left-64'>
           <div>
-            <h2 className='  font-spotifylight'>Playlist</h2>
+            <h2 className='  font-spotifylight'>{selectedPlaylist?.type}</h2>
               <h1 className=' text-8xl font-spotifybold '>{selectedPlaylist?.name}</h1>
-              <div className='flex flex-row  font-spotifylight mt-10 '>
-                <p>{selectedPlaylist?.owner},</p>
-                <p>2.238 likes,</p>
-                <p>{selectedPlaylist?.tracks.length} songs,</p>
-              </div>
+              <div className='flex flex-row  font-spotifylight text-[13px] mt-10 items-center'>
+                <div className='h-6 w-6 bg-black rounded-full mr-2'> </div>
+                  <p>{selectedPlaylist?.owner}</p>
+                  <svg className='h-1 w-1 m-2' viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.204224" y="0.859131" width="20.2817" height="20.2817" rx="10.1408" fill="#ffff"/>
+                  </svg>
+
+                  <p>{selectedPlaylist?.tracks.length} songs,</p>
+
+                  <p className='text-[#B3B3B3] ml-1'>13 min 14 sec</p>
+               </div>
           </div>
           </div>
        </div>

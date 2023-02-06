@@ -79,19 +79,17 @@ const Body = () => {
         "Content-Type": "application/json",
       }
     })
-
-    console.log(data.tracks.items)
-
- 
+// console.log(data.type)
     const selectedPlaylistData = {
         name: data.name,
+        type: data.type,
         images: data.images[0],
         owner: data.owner.display_name,
-        tracks: data.tracks.items
+        tracks: data.tracks.items,
     }
     dispatch({type:reducerCases.SET_SELECTED_PLAYLIST, selectedPlaylistData})
     
-    console.log(id)
+    
   
   }
 
@@ -116,7 +114,7 @@ const Body = () => {
     
        { isopen.home && <Home/> }
        { isopen.search && <Search/> }
-       { isopen.playlist && <Playlists/> }
+       { isopen.playlist.value && <Playlists/> }
        
     </div>
     <Player/> 
