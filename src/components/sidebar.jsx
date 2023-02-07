@@ -7,10 +7,10 @@ import { Homesvg, Searchsvg ,Librarysvg, Addplaylistsvg, Likedsongssvg}from "../
 const Sidebar = ({handleOpen, isopen, handlePlaylist}) => {
   const [{playlist}] = useCreateContext();
 
-  
+  console.log(playlist)
 
   return (
-    <div className="w-1/5 bg-black h-full font-spotifybold ">
+    <div className=" bg-black font-spotifybold  ">
       <div className=" pl-4 pr-4 text-[#B3B3B3] ">
         <div className=" p-6 pl-0  ">
           <img src={logo} className="h-10 " />
@@ -52,7 +52,7 @@ const Sidebar = ({handleOpen, isopen, handlePlaylist}) => {
         </div>
         </div>
 
-        <div className=" h-full">
+        <div className="overflow-y-scroll pb-2 h-[567px]   ">
           {
              playlist.items?.map((item) =>{
       

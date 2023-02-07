@@ -1,15 +1,9 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios'
 import { useCreateContext } from '../utils/provider'
 import { reducerCases } from '../utils/constant'
-import Sidebar from './sidebar'
 import Body from './body'
-import Player from './player'
-import Home from './home'
-import Search from './search'
-import {BrowserRouter as Router , Routes , Route } from 'react-router-dom'
-
 
 const Main = () => {
   const [{token}, dispatch] = useCreateContext()
@@ -72,42 +66,10 @@ const Main = () => {
     getAlbums()
  },[token, dispatch])
 
-  // console.log(featuredPlaylist)
-  // useEffect(() => {
-  //     const getPlaylist = async () => {
-
-  //       const { data } = await axios.get("https://api.spotify.com/v1/me/playlists",{
-  //         headers:{
-  //           'Authorization': 'Bearer ' + token,
-  //           "Content-Type": "application/json",
-  //         }
-  //       })
-
-  //       const playlistInfo = {
-  //         items: data.items
-  //       }
-        
-  //       dispatch({type:reducerCases.SET_PLAYLISTS, playlistInfo})
-  //     }
-  //     getPlaylist()
-  // },[ token,dispatch,])
-  // console.log(playlist)
-
   return (
-    <div className=' h-screen w-screen flex'>
-       {/* <Sidebar/> */}
-        {/* <div className=' overflow-scroll bg-[#121212] bg-gradient-to-t from-[#121212] via-[#121212] to-purple-900 w-4/5 p-4 pt-0  mb-20 overflow-x-hidden scrollbar-hide'> */}
-       
-     
+    <>
         <Body/>
-      
-        {/* <Home/> */}
-        {/* <Search/> */}
-    {/* </div> */}
-     {/* <Sidebar/> */}
-      {/* <Body/> */}
-      {/* <Player/>  */}
-   </div>
+   </>
   ) 
 }
 

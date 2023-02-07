@@ -20,11 +20,11 @@ const Body = () => {
       id:null,
     }
   },)
-  // console.log(featuredPlaylist)
+
   useEffect(() => {
       const getPlaylist = async () => {
 
-        const { data } = await axios.get("https://api.spotify.com/v1/me/playlists",{
+        const { data } = await axios.get("https://api.spotify.com/v1/me/playlists?limit=50",{
           headers:{
             'Authorization': 'Bearer ' + token,
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const Body = () => {
       }
       getPlaylist()
   },[ token,dispatch,])
-  // console.log(playlist)
+
 
   const handleOpen = (value,param) => {
     if(param === 'home'){
@@ -79,7 +79,7 @@ const Body = () => {
         "Content-Type": "application/json",
       }
     })
-// console.log(data.type)
+
     const selectedPlaylistData = {
         name: data.name,
         type: data.type,
@@ -88,9 +88,6 @@ const Body = () => {
         tracks: data.tracks.items,
     }
     dispatch({type:reducerCases.SET_SELECTED_PLAYLIST, selectedPlaylistData})
-    
-    
-  
   }
 
   const getRandomColor = () => {
@@ -108,17 +105,20 @@ const Body = () => {
   };
 
   return (
-  <>
-    <Sidebar handleOpen={handleOpen} handlePlaylist={handlePlaylist} isopen={isopen}/>
-    <div className={`overflow-scroll  bg-gradient-to-t from-[#121212] via-[#121212] ${getRandomColor()} w-4/5  pt-0  mb-20 overflow-x-hidden scrollbar-hide`}>
+  <div className='h-screen w-full flex '>
+    <div className='  w-1/5 bg-slate-200 flex flex-col  h-[91%] fixed '>
+     <Sidebar handleOpen={handleOpen} handlePlaylist={handlePlaylist} isopen={isopen}/>
+    </div>
+
+    <div className={`w-4/5 overflow-scroll  bg-gradient-to-t from-[#121212] via-[#121212] ${getRandomColor()}   pt-0 h-[91%] absolute top-0 right-0 overflow-x-hidden scrollbar-hide`}>
     
        { isopen.home && <Home/> }
        { isopen.search && <Search/> }
        { isopen.playlist.value && <Playlists/> }
        
     </div>
-    <Player/> 
-  </>
+    {/* <Player/>  */}
+  </div>
   )
 }
 
