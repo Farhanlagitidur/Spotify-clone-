@@ -1,70 +1,91 @@
 import React from "react";
 import logo from "../assets/Spotify_Logo_White.png";
-import { useCreateContext } from '../utils/provider'
-import { useNavigate ,} from "react-router-dom";
-import { Homesvg, Searchsvg ,Librarysvg, Addplaylistsvg, Likedsongssvg}from "../assets/svg/svg";
+import { useCreateContext } from "../utils/provider";
+import {
+  Homesvg,
+  Searchsvg,
+  Librarysvg,
+  Addplaylistsvg,
+  Likedsongssvg,
+} from "../assets/svg/svg";
 
-const Sidebar = ({handleOpen, isopen, handlePlaylist}) => {
-  const [{playlist}] = useCreateContext();
+const Sidebar = ({ handleOpen, isopen, handlePlaylist }) => {
+  const [{ playlist }] = useCreateContext();
 
-  console.log(playlist)
+  const styles = {
+    logo:"h-10",
+    logowrapper:"p-6 pl-0",
+    sidebarwrapper:"bg-black pl-4 pr-4 text-[#B3B3B3] font-spotifybold h-full",
+    sidebarlinkwrapper:"lg:h-[48%] min-[1440px]:h-[40%]",
+    toplinkswrapper:"cursor-pointer mb-10",
+    homebutton:`flex flex-row items-center mb-2 rounded-md w-full hover:text-white ${isopen.home && 'text-white'}`,
+    searchbutton: `flex flex-row items-center mb-2 rounded-md w-full hover:text-white ${isopen.search && 'text-white'}`,
+    librarybutton: "flex flex-row items-center rounded-md w-full mb-2 hover:text-white",
+    link:"text-center m-2 pl-2 text-sm",
+    bottomlinkswrapper:"border-b-[1px] border-[#222222] h-20",
+    addplaylistbutton:"w-full flex flex-row cursor-pointer mb-4 items-center hover:text-white",
+    likedsongbutton:"w-full flex flex-row cursor-pointer items-center hover:text-white",
+    bottomlink:"pl-4 text-sm text-center",
+    playlistwrapper:"overflow-auto lg:h-[55%] min-[1440px]:h-[60%] scrollbar-hide",
+
+  }
 
   return (
-    <div className=" bg-black font-spotifybold  ">
-      <div className=" pl-4 pr-4 text-[#B3B3B3] ">
-        <div className=" p-6 pl-0  ">
-          <img src={logo} className="h-10 " />
+    <div className={styles.sidebarwrapper}>
+      <div className={styles.sidebarlinkwrapper}>
+        <div className={styles.logowrapper}>
+          <img src={logo} className={styles.logo} />
         </div>
 
-        <ul className=" cursor-pointer mb-10 ">
-          <button 
-          onClick={() => handleOpen(true,"home")}
-          className={`flex flex-row items-center mb-2  rounded-md w-full hover:text-white ${isopen.home && 'text-white'}`}>
+        <ul className={styles.toplinkswrapper}>
+          <button
+            onClick={() => handleOpen(true, "home")}
+            className={styles.homebutton}
+          >
             <Homesvg />
-            <span className=" text-center m-2 pl-2 text-sm ">Home</span>
+            <span className={styles.link}>Home</span>
           </button>
 
-          <button 
-           onClick={() => handleOpen(true,'search')}
-            // onClick={handleClick}
-          className={`flex flex-row items-center mb-2  rounded-md w-full hover:text-white ${isopen.search && 'text-white'}`}>
-             <Searchsvg stroke={'white'}/>
-            <span className=" text-center pl-2 m-2 text-sm">Search</span>
+          <button
+            onClick={() => handleOpen(true, "search")}
+            className={styles.searchbutton}
+          >
+            <Searchsvg stroke={"white"} />
+            <span className={styles.link}>Search</span>
           </button>
 
-          <li className="flex flex-row items-center rounded-md w-full mb-2 hover:text-white ">
-            <Librarysvg/>
-            <span className=" text-center pl-2 m-2 text-sm">Your Library</span>
-          </li>
+          <button className={styles.librarybutton}>
+            <Librarysvg />
+            <span className={styles.link}>Your Library</span>
+          </button>
         </ul>
 
-        <div className=" border-b-[1px] border-[#222222] h-20">
-        <div className=" w-full   flex flex-row cursor-pointer mb-4 items-center hover:text-white ">
-            <Addplaylistsvg/>
-          <span className="pl-4 text-center text-sm">Add Playlist</span>
+        <div className={styles.bottomlinkswrapper}>
+          <div className={styles.addplaylistbutton}>
+            <Addplaylistsvg />
+            <span className={styles.bottomlink}>Add Playlist</span>
+          </div>
+
+          <div className={styles.likedsongbutton}>
+            <Likedsongssvg />
+            <span className={styles.bottomlink}>Liked Songs</span>
+          </div>
         </div>
+      </div>
 
-
-
-        <div className=" w-full   flex flex-row cursor-pointer items-center hover:text-white">
-        <Likedsongssvg/>
-        <span className="pl-4 text-sm text-center ">Liked Songs</span> 
-        </div>
-        </div>
-
-        <div className="overflow-y-scroll pb-2 h-[567px]   ">
-          {
-             playlist.items?.map((item) =>{
-      
-             return(
-              <p 
-              onClick={() => handlePlaylist(true,'playlist',item.id)}
-              className={`text-sm m-3 ml-0 font-spotifylight text-[13px] text-[#B3B3B3] ${isopen.playlist.id === item.id && 'text-white'} hover:text-white cursor-pointer `}>{item.name}</p>
-             )   
-            })
-          }
-        </div>
-
+      <div className={styles.playlistwrapper}>
+        {playlist.items?.map((item) => {
+          return (
+            <p
+              onClick={() => handlePlaylist(true, "playlist", item.id)}
+              className={`text-sm m-3 ml-0 font-spotifylight text-[13px] text-[#B3B3B3] ${
+                isopen.playlist.id === item.id && "text-white"
+              } hover:text-white cursor-pointer `}
+            >
+              {item.name}
+            </p>
+          );
+        })}
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import { useContext, useReducer, createContext } from 'react'
 import React from 'react'
-import { reducer } from './reducer';
 
 export const Statecontext = createContext()
 

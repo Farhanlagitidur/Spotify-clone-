@@ -4,21 +4,28 @@ import { BackButtonsvg, NextButtonsvg, ArrowDown}from "../assets/svg/svg";
 
 const Navbar = () => {
  const [{ userInfo }] = useCreateContext()
-
+ 
+ const styles = {
+    wrapper:"h-16 flex justify-between items-center",
+    profilewrapper: "h-9 w-28 rounded-full p-1 flex flex-row items-center justify-between bg-black cursor-pointer",
+    button:"h-10 flex flex-row justify-center items-center",
+    image:"h-8 w-8 rounded-full bg-cover",
+    username:"font-spotifylight text-white",
+ }
 
   return (
-    <div className="h-16 flex justify-between  items-center  ">
-        <div className=" h-10 flex flex-row justify-center items-center">
+    <div className={styles.wrapper}>
+        <div className={styles.button}>
             <BackButtonsvg/>
             <NextButtonsvg/>
         </div>
 
-        <div className=" h-9 w-28 rounded-full p-1 flex flex-row items-center justify-between bg-black cursor-pointer">
+        <div className={styles.profilewrapper}>
             <div 
             style={{backgroundImage: `url(${userInfo?.userImage.url})`}}
-            className=" h-8 w-8 rounded-full bg-cover">
+            className={styles.image}>
             </div>
-            <span className=" font-spotifylight text-white">{userInfo?.userName}</span>
+            <span className={styles.username}>{userInfo?.userName}</span>
         <ArrowDown/>
     </div>
   </div>
