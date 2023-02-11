@@ -4,9 +4,9 @@ import logo from "../assets/Spotify_Logo_Black.png";
 const Login = () => {
   const handleClick = async () => {
     const client_id = "8762fdb3c1c64c8b99a24c0e74a2cec3";
-    // const redirect_uri = "http://localhost:3000/callback";
+    const redirect_uri = "http://localhost:3000/callback";
     // const redirect_uri = "https://spotify-clone-chi-five.vercel.app/callback/spotify";
-    const redirect_uri = "https://spotify-clone-chi-five.vercel.app/callback";
+    // const redirect_uri = "https://spotify-clone-chi-five.vercel.app/callback";
     const api_uri = "https://accounts.spotify.com/authorize";
     const scope = [
       "user-read-private",

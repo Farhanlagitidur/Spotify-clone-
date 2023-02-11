@@ -10,9 +10,9 @@ const Home = () => {
   const styles = {
     container: "h-full m-4 mt-0",
     navbarwrapper: "w-full pt-0",
-    playlistwrapper:"bg-[#303030] backdrop-blur-xl bg-gray-300/10 h-20 flex items-center rounded-sm hover:bg-gray-400/40 cursor-pointer",
-    playlistimage: "h-full w-20 bg-yellow-300 rounded-sm bg-cover bg-center",
-    playlisttitle: "ml-6 font-spotifybold text-white",
+    playlistwrapper:"bg-[#303030] backdrop-blur-xl bg-gray-300/10 h-20 flex items-center  rounded-sm hover:bg-gray-400/40 cursor-pointer",
+    playlistimage: "h-full w-20 bg-yellow-300 rounded-sm bg-cover bg-center ",
+    playlisttitle: "ml-4 mr-4 font-spotifybold text-white truncate w-80",
     hitswrapper:"w-48 bg-[#171717] hover:bg-gray-400/10 cursor-pointer flex-row p-4 rounded",
     hitsname:"font-spotifybold text-white truncate w-full block overflow-hidden",
     hitsdescription:"font-spotifylight text-[13px] overflow-hidden text-[#B3B3B3] h-10 mt-2",

@@ -15,8 +15,7 @@ const Sidebar = ({ handleOpen, isopen, handlePlaylist }) => {
   const styles = {
     logo:"h-10",
     logowrapper:"p-6 pl-0",
-    sidebarwrapper:"bg-black pl-4 pr-4 text-[#B3B3B3] font-spotifybold h-full",
-    sidebarlinkwrapper:"lg:h-[48%] min-[1440px]:h-[40%]",
+   
     toplinkswrapper:"cursor-pointer mb-10",
     homebutton:`flex flex-row items-center mb-2 rounded-md w-full hover:text-white ${isopen.home && 'text-white'}`,
     searchbutton: `flex flex-row items-center mb-2 rounded-md w-full hover:text-white ${isopen.search && 'text-white'}`,
@@ -26,13 +25,15 @@ const Sidebar = ({ handleOpen, isopen, handlePlaylist }) => {
     addplaylistbutton:"w-full flex flex-row cursor-pointer mb-4 items-center hover:text-white",
     likedsongbutton:"w-full flex flex-row cursor-pointer items-center hover:text-white",
     bottomlink:"pl-4 text-sm text-center",
-    playlistwrapper:"overflow-auto lg:h-[55%] min-[1440px]:h-[60%] scrollbar-hide",
+    // sidebarlinkwrapper:"lg:h-[48%] min-[1440px]:h-[40%] bg-green-300",
+    // playlistwrapper:"overflow-auto lg:h-[55%] min-[1440px]:h-[60%] scrollbar-hide bg-red-400",
 
   }
 
   return (
-    <div className={styles.sidebarwrapper}>
-      <div className={styles.sidebarlinkwrapper}>
+   <>
+    <div className="pl-4 pr-4 text-[#B3B3B3] font-spotifybold h-full bg-black">
+      <div className="h-auto ">
         <div className={styles.logowrapper}>
           <img src={logo} className={styles.logo} />
         </div>
@@ -73,12 +74,13 @@ const Sidebar = ({ handleOpen, isopen, handlePlaylist }) => {
         </div>
       </div>
 
-      <div className={styles.playlistwrapper}>
+        
+        <div className="overflow-auto lg:h-[50%] min-[1440px]:h-[60%] scrollbar-hide ">
         {playlist.items?.map((item) => {
           return (
             <p
               onClick={() => handlePlaylist(true, "playlist", item.id)}
-              className={`text-sm m-3 ml-0 font-spotifylight text-[13px] text-[#B3B3B3] ${
+              className={`text-sm m-3 ml-0 truncate font-spotifylight text-[13px] text-[#B3B3B3] ${
                 isopen.playlist.id === item.id && "text-white"
               } hover:text-white cursor-pointer `}
             >
@@ -87,7 +89,12 @@ const Sidebar = ({ handleOpen, isopen, handlePlaylist }) => {
           );
         })}
       </div>
+       
+     
+ 
     </div>
+     
+   </>
   );
 };
 
