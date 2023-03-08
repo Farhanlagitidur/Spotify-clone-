@@ -73,7 +73,7 @@ const Playlists = () => {
             <div className={styles.trackwrapper}>
               <p className={styles.trackname}>{track?.track?.name}</p>
               <div className={styles.artistwrapper}>
-                {track.track.explicit ? (
+                {track?.track?.explicit ? (
                   <p className={styles.explicit}>E</p>
                 ) : null}
 
