@@ -71,20 +71,20 @@ const Playlists = () => {
               className={styles.image}
             ></div>
             <div className={styles.trackwrapper}>
-              <p className={styles.trackname}>{track?.track.name}</p>
+              <p className={styles.trackname}>{track?.track?.name}</p>
               <div className={styles.artistwrapper}>
                 {track.track.explicit ? (
                   <p className={styles.explicit}>E</p>
                 ) : null}
 
                 <p className={styles.artistname}>
-                  {track?.track.artists.map((item) => item.name).join(", ")}
+                  {track?.track?.artists.map((item) => item.name).join(", ")}
                 </p>
               </div>
             </div>
           </div>
 
-          <p className={styles.album}>{track?.track.album.name}</p>
+          <p className={styles.album}>{track?.track?.album?.name}</p>
           <p className={styles.date}>{formattedDate}</p>
           <p className={styles.duration}>
             {minutes + ":" + (seconds < 10 ? "0" : "") + seconds}
@@ -118,7 +118,7 @@ const Playlists = () => {
                 <div className={styles.playlistinfoowner}> </div>
                 <p>{selectedPlaylist?.owner}</p>
                 <Dot />
-                <p>{selectedPlaylist?.tracks.length} songs,</p>
+                <p>{selectedPlaylist?.tracks?.length} songs,</p>
 
                 <p className={styles.playlistinfolength}>13 min 14 sec</p>
               </div>
