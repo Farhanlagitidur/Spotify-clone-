@@ -75,7 +75,7 @@ const Sidebar = ({ handleOpen, isopen, handlePlaylist }) => {
       </div>
 
         
-        <div className="overflow-auto lg:h-[50%] min-[1440px]:h-[60%] scrollbar-hide ">
+        <div className="overflow-auto lg:h-[50%] min-[1440px]:h-[60%] scrollbar-hide">
         {playlist.items?.map((item) => {
           return (
             <p

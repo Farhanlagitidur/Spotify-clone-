@@ -49,49 +49,49 @@ const styles = {
 const Playlists = () => {
   const [{ selectedPlaylist }] = useCreateContext();
 
-  const Track = ({ track, id }) => {
-    const ms = track?.track.duration_ms;
-    const minutes = Math.floor(ms / 60000);
-    const seconds = ((ms % 60000) / 1000).toFixed(0);
+    const Track = ({ track, id }) => {
+      const ms = track?.track?.duration_ms;
+      const minutes = Math.floor(ms / 60000);
+      const seconds = ((ms % 60000) / 1000).toFixed(0);
 
-    const dateString = track.added_at;
-    const date = new Date(dateString);
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    const formattedDate = date.toLocaleDateString("en-US", options);
+      const dateString = track.added_at;
+      const date = new Date(dateString);
+      const options = { year: "numeric", month: "short", day: "numeric" };
+      const formattedDate = date.toLocaleDateString("en-US", options);
 
-    return (
-      <div className={styles.cardplaylistwrapper}>
-        <p className={styles.number}>{id === 0 ? "1" : id + 1}</p>
+      return (
+        <div className={styles.cardplaylistwrapper}>
+          <p className={styles.number}>{id === 0 ? "1" : id + 1}</p>
 
-        <div className={styles.titlewrapper}>
-          <div
-            style={{
-              backgroundImage: `url(${track?.track?.album.images[0].url})`,
-            }}
-            className={styles.image}
-          ></div>
-          <div className={styles.trackwrapper}>
-            <p className={styles.trackname}>{track?.track.name}</p>
-            <div className={styles.artistwrapper}>
-              {track.track.explicit ? (
-                <p className={styles.explicit}>E</p>
-              ) : null}
+          <div className={styles.titlewrapper}>
+            <div
+              style={{
+                backgroundImage: `url(${track?.track?.album.images[0].url})`,
+              }}
+              className={styles.image}
+            ></div>
+            <div className={styles.trackwrapper}>
+              <p className={styles.trackname}>{track?.track.name}</p>
+              <div className={styles.artistwrapper}>
+                {track.track.explicit ? (
+                  <p className={styles.explicit}>E</p>
+                ) : null}
 
-              <p className={styles.artistname}>
-                {track?.track.artists.map((item) => item.name).join(", ")}
-              </p>
+                <p className={styles.artistname}>
+                  {track?.track.artists.map((item) => item.name).join(", ")}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <p className={styles.album}>{track?.track.album.name}</p>
-        <p className={styles.date}>{formattedDate}</p>
-        <p className={styles.duration}>
-          {minutes + ":" + (seconds < 10 ? "0" : "") + seconds}
-        </p>
-      </div>
-    );
-  };
+          <p className={styles.album}>{track?.track.album.name}</p>
+          <p className={styles.date}>{formattedDate}</p>
+          <p className={styles.duration}>
+            {minutes + ":" + (seconds < 10 ? "0" : "") + seconds}
+          </p>
+        </div>
+      );
+    };
 
   return (
     <>
