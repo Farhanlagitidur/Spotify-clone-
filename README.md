@@ -1,2 +1,1 @@
-![Spotify](https://user-images.githubusercontent.com/98781896/225625854-7637a2f4-92df-44a4-bd29-0832e79534d8.png)
-![Spotify (2)](https://user-images.githubusercontent.com/98781896/225626521-8ddd0e2f-4256-4899-9bb3-e2802019dff3.png)
+![Spotify](https://user-images.githubusercontent.com/98781896/232233812-8411d361-57e6-4fe4-b49b-8e5dba2796f9.png)
